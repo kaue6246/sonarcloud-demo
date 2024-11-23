@@ -30,4 +30,4 @@ phases:
   post_build:
     commands:
       - echo building project
-      -echo finished building
+      - echo finished building
