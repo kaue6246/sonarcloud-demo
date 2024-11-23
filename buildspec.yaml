@@ -1,0 +1,32 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 14  # Keep Node.js version as is
+      dotnet: 8.0
+    commands:
+      - echo "Restoring .NET project dependencies..."
+      - dotnet restore aqa.csproj
+      - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip  # Updated to a compatible version
+      - unzip sonar-scanner-cli-5.0.1.3006-linux.zip
+      - export PATH=$PATH:/sonar-scanner-5.0.1.3006-linux/bin
+
+  pre_build:
+    commands:
+      - echo "Fetching additional git history to disable shallow clone"
+      - git fetch --unshallow || echo "Already a full clone or unable to unshallow"
+      - echo "Preparing for SonarCloud analysis..."
+      - curl https://sonarcloud.io/api/qualitygates/project_status?projectKey=kaue6246_sonarcloud-demo > analysis.json
+      - cat analysis.json
+
+  build:
+    commands:
+      - echo "Publishing the project..."
+      - dotnet publish aqa.csproj --configuration Release
+      - echo "Logging in to SonarCloud....."
+      - ./sonar-scanner-5.0.1.3006-linux/bin/sonar-scanner -X --define sonar.organization=kaue6246 --define sonar.projectKey=kaue6246_sonarcloud-demo --define sonar.host.url=https://sonarcloud.io --define sonar.login=816583e13428d7829eef68304de116fc5cf76f75
+
+  post_build:
+    commands:
+      - echo "Runni
