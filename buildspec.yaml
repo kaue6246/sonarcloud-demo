@@ -29,4 +29,8 @@ phases:
 
   post_build:
     commands:
-      - echo "Runni
+      - echo building project
+      -echo finished building
+  cache:
+    path:
+     - "node modules/**/*"
