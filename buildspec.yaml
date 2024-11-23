@@ -31,6 +31,3 @@ phases:
     commands:
       - echo building project
       -echo finished building
-  cache:
-    path:
-     - "node modules/**/*"
