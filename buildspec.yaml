@@ -7,7 +7,7 @@ phases:
       dotnet: 8.0
     commands:
       - echo "Restoring .NET project dependencies..."
-      - dotnet restore newfile.csproj
+      - dotnet restore newfile.csproj --verbosity detailed
       - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip  # Updated to a compatible version
       - unzip sonar-scanner-cli-5.0.1.3006-linux.zip
       - export PATH=$PATH:/sonar-scanner-5.0.1.3006-linux/bin
