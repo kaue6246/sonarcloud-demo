@@ -7,7 +7,7 @@ phases:
       dotnet: 8.0
     commands:
       - echo "Restoring .NET project dependencies..."
-      - dotnet restore aqa.csproj
+      - dotnet restore newfile.csproj
       - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip  # Updated to a compatible version
       - unzip sonar-scanner-cli-5.0.1.3006-linux.zip
       - export PATH=$PATH:/sonar-scanner-5.0.1.3006-linux/bin
@@ -23,7 +23,7 @@ phases:
   build:
     commands:
       - echo "Publishing the project..."
-      - dotnet publish aqa.csproj --configuration Release
+      - dotnet publish newfile.csproj --configuration Release
       - echo "Logging in to SonarCloud....."
       - ./sonar-scanner-5.0.1.3006-linux/bin/sonar-scanner -X --define sonar.organization=kaue6246 --define sonar.projectKey=kaue6246_sonarcloud-demo --define sonar.host.url=https://sonarcloud.io --define sonar.login=816583e13428d7829eef68304de116fc5cf76f75
 
